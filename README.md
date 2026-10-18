@@ -2,7 +2,10 @@
 
 **DeepSeek Harness 截图插件** — 输入框一键截图，隐藏 / 保留本窗口、窗口边缘自动吸附框选、截图直接插入对话框。
 
-Windows 专用（依赖 PowerShell + Win32）；实测于 DSH `0.2.0-rc.2`。
+Windows 专用（依赖 PowerShell + Win32）；实测于 DSH `0.2.0-rc.2` 与 `0.2.1-rc.2`。
+
+> **反馈 / 报问题**：<https://github.com/Durandalw/dsh-plugin-screenshot/issues>
+> 崩溃类问题请附 `%APPDATA%\@deepseek-ai\dsh-desktop\logs\` 下对应的日志。
 
 ---
 
@@ -92,6 +95,15 @@ scripts/clip.ps1  写入剪贴板（需 -STA）
 ```
 
 ## 变更记录
+
+### 0.3.4
+
+* **元数据**：补上 `repository` / `bugs` / `homepage`，源码托管到
+  <https://github.com/Durandalw/dsh-plugin-screenshot>。
+  npm 页面因此出现 **Repository** 与 **Issues** 链接，反馈终于有了入口 ——
+  此前这个包没有任何可留言的地方，用户只能另想办法转达问题。
+* README 顶部加了反馈指引，并注明崩溃类问题要附的事件日志路径。
+* 代码与 0.3.3 完全相同，仅元数据和文档变化。
 
 ### 0.3.3
 

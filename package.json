@@ -1,11 +1,19 @@
 {
   "name": "dsh-plugin-screenshot",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "DeepSeek Harness 截图插件：输入框入口、隐藏/保留本窗口截图、窗口边缘自动吸附框选、截图直接插入对话框",
   "type": "module",
   "main": "lib/index.js",
   "license": "MIT",
   "author": "baiyinshiyuan",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Durandalw/dsh-plugin-screenshot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Durandalw/dsh-plugin-screenshot/issues"
+  },
+  "homepage": "https://github.com/Durandalw/dsh-plugin-screenshot#readme",
   "os": [
     "win32"
   ],
