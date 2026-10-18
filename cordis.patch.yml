@@ -1,0 +1,25 @@
+# dsh-plugin-screenshot bundle patch
+#
+# 一行 insert 挂载宿主半身（工具 + HTTP 路由）。
+# 浏览器半身由 package.json 的 dsh.client 声明，绑定在 name 为裸包名的这一行上。
+# 注意：name 必须与 package.json 的包名完全一致，DSH loader 靠它解析包。
+- insert:
+    - id: dsh-plugin-screenshot
+      name: 'dsh-plugin-screenshot'
+      config:
+        # 截图后默认动作：clipboard（写剪贴板）| attach（插入为当前对话附件）
+        defaultAction: clipboard
+        # 自动吸附阈值（像素）：拖拽/移动时若选区边缘距窗口边缘小于该值则吸附
+        snapThreshold: 12
+        # 吸附时忽略的窗口：覆盖全屏的浮层类（NVIDIA Overlay、输入法等）
+        ignoreWindowPatterns:
+          - 'NVIDIA'
+          - 'TextInputHost'
+          - 'Windows 输入体验'
+          - 'Program Manager'
+          - 'Cua.AgentCursorOverlay'
+        # 长截图：每帧滚动步长（占窗口高度比例）与最大帧数
+        longShotScrollRatio: 0.8
+        longShotMaxFrames: 40
+        # 长截图拼接时，帧间重叠检测的容忍度（像素）
+        longShotOverlapTolerance: 4

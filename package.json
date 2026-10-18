@@ -1,0 +1,67 @@
+{
+  "name": "dsh-plugin-screenshot",
+  "version": "0.3.3",
+  "description": "DeepSeek Harness 截图插件：输入框入口、隐藏/保留本窗口截图、窗口边缘自动吸附框选、截图直接插入对话框",
+  "type": "module",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "author": "baiyinshiyuan",
+  "os": [
+    "win32"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "screenshot",
+    "snipping",
+    "windows"
+  ],
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "scripts/snip.ps1",
+    "scripts/shot.ps1",
+    "scripts/win.ps1",
+    "scripts/crop.ps1",
+    "scripts/clip.ps1",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    },
+    "compatibility": {
+      "node": ">=20",
+      "dsh": ">=0.2.0-rc.1"
+    }
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@deepseek-ai/dsh-client-ui-conversation": ">=0.2.0-rc.1",
+    "@deepseek-ai/dsh-client-ui-slots": ">=0.2.0-rc.1",
+    "@deepseek-ai/dsh-tools": ">=0.2.0-rc.1"
+  }
+}
