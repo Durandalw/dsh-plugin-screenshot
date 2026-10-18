@@ -106,6 +106,42 @@ const cases = []
   cases.push(['三层堆叠，点在最内层 → 应选最上层的 L1', at({ x: 300, y: 300 }), 'L1'])
 }
 
+// --- Edge snapping must not reach into covered windows -----------------------
+//
+// Real layout from the machine that reported this: DSH on top, with Clash and
+// PowerShell fully contained inside it and therefore completely covered.
+{
+  const windows = [
+    win('DSH', 309, 149, 1941, 1243),
+    win('Clash', 565, 216, 1432, 1106),
+    win('PowerShell', 751, 169, 1488, 776),
+  ]
+  const findWindowAt = extractFunction('findWindowAt', { windows, scale: 1 })
+  const findSnap = extractFunction('findSnap', {
+    windows, scale: 1, threshold: 12, snapOn: true, findWindowAt,
+  })
+  // The shared loop expects a window object (it reads `.title` itself), so unwrap
+  // findSnap's { w, d, t } result here rather than pre-extracting the title.
+  const asWindow = (hit) => (hit === null ? null : hit.w)
+
+  // Pointer inside DSH; the box's left edge sits 5px from Clash's left edge (565)
+  // but 261px from DSH's (309). Before the fix this snapped to the covered window.
+  cases.push(['拖框靠近被盖住窗口的边缘 → 不应吸附它',
+    asWindow(findSnap({ x: 570, y: 220, width: 200, height: 120 }, { x: 800, y: 400 })), null])
+
+  // Box's top-left near DSH's own corner: the visible window snaps.
+  cases.push(['拖框靠近可见窗口边缘 → 应吸附它',
+    asWindow(findSnap({ x: 313, y: 153, width: 200, height: 120 }, { x: 800, y: 400 })), 'DSH'])
+
+  // Pointer outside every window: nearest-edge search still applies.
+  cases.push(['指针在空白处 → 仍按最近边缘吸附',
+    asWindow(findSnap({ x: 313, y: 153, width: 200, height: 120 }, { x: 2000, y: 1500 })), 'DSH'])
+
+  // Without a pointer argument the old behaviour (all windows eligible) remains.
+  cases.push(['未传指针 → 回退到全量最近边缘',
+    asWindow(findSnap({ x: 570, y: 220, width: 200, height: 120 })), 'Clash'])
+}
+
 // --- Scale applied ----------------------------------------------------------
 {
   const windows = [
